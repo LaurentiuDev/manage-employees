@@ -15,7 +15,16 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@manage-employees/feature": ["libs/employee/feature/src/index.ts"],
+      "@manage-employees/employee": ["libs/employee/src/index.ts"],
+      "@manage-employees/employee/data": [
+        "libs/employee/src/lib/data/src/index.ts"
+      ],
+      "@manage-employees/employee/feature": [
+        "libs/employee/src/lib/feature/src/index.ts"
+      ],
+      "@manage-employees/employee/ui": [
+        "libs/employee/src/lib/ui/src/index.ts"
+      ],
       "@manage-employees/models": ["libs/shared/models/src/index.ts"],
       "@manage-employees/styles": ["libs/shared/styles/src/index.ts"]
     }
