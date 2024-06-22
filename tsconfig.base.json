@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@manage-employees/feature": ["libs/employee/feature/src/index.ts"],
+      "@manage-employees/models": ["libs/shared/models/src/index.ts"],
       "@manage-employees/styles": ["libs/shared/styles/src/index.ts"]
     }
   },
