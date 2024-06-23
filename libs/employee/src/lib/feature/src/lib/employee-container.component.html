@@ -36,6 +36,8 @@
       <button (click)="openAddEmployeeModal()"><i class="fa fa-plus"></i></button>
     </div>
   </div>
+
+  <lib-search [placeholder]="'Search...'" (searchValueChanged)="search($event)"></lib-search>
   
   @for(employee of (employees$ | async) ?? []; track employee) {
     <lib-ui-employee-list-item

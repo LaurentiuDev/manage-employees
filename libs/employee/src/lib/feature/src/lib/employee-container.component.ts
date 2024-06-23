@@ -4,6 +4,7 @@ import { AddEmployeeComponent, EditEmployeeComponent, EmployeeListItemComponent 
 import { EmployeeFacade } from '@manage-employees/employee/data';
 import { Employee } from '@manage-employees/shared/models';
 import { ConfirmationDialogComponent } from '@manage-employees/confirmation-dialog';
+import { SearchComponent } from '@manage-employees/shared/search';
 
 @Component({
   selector: 'lib-employee-container',
@@ -13,7 +14,8 @@ import { ConfirmationDialogComponent } from '@manage-employees/confirmation-dial
     EmployeeListItemComponent,
     AddEmployeeComponent,
     EditEmployeeComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    SearchComponent
   ],
   providers: [EmployeeFacade],
   templateUrl: './employee-container.component.html',
@@ -31,7 +33,7 @@ export class EmployeeContainerComponent implements OnInit {
   confirmationModalIsOpen = false;
 
   ngOnInit(): void {
-    this.facade.getAll();
+    this.facade.getAll('');
   }
 
   setEmployee(employee: Employee): void {
@@ -76,5 +78,9 @@ export class EmployeeContainerComponent implements OnInit {
 
   closeConfirmationModal(): void {
     this.confirmationModalIsOpen = false; 
+  }
+
+  search(searchValue: string): void {
+    this.facade.getAll(searchValue);
   }
 }

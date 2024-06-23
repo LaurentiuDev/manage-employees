@@ -29,6 +29,9 @@
       "@manage-employees/employee/ui": [
         "libs/employee/src/lib/ui/src/index.ts"
       ],
+      "@manage-employees/shared/search": [
+        "libs/shared/src/lib/components/search/src/index.ts"
+      ],
       "@manage-employees/shared": ["libs/shared/src/index.ts"],
       "@manage-employees/shared/models": [
         "libs/shared/src/lib/models/src/index.ts"

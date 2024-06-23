@@ -16,9 +16,20 @@ export class EmployeeEffects {
   getEmployees$ = createEffect(() => 
     this.actions$.pipe(
       ofType(EmployeeActions.getEmployees),
-      mergeMap(() =>
+      mergeMap((action) =>
         this.localStorageService.getAll('employees').pipe(
-          map((employees: Employee[]) => EmployeeActions.getEmployeesSuccess({ employees })),
+          map((employees: Employee[]) => {
+            if (action.searchValue) {
+              return EmployeeActions.getEmployeesSuccess({ 
+                employees: employees.filter((employee) => 
+                  employee.firstName.toLowerCase().includes(action.searchValue.toLowerCase())
+                  || employee.lastName.toLowerCase().includes(action.searchValue.toLowerCase())
+                  || employee.position.toLowerCase().includes(action.searchValue.toLowerCase())
+              )});
+            } else {
+              return EmployeeActions.getEmployeesSuccess({ employees });
+            }
+          }),
           catchError((error: string | null) => of(EmployeeActions.getEmployeesFailed({ error })))
         )
       )

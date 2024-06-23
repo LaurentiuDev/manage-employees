@@ -9,8 +9,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './confirmation-dialog.component.scss',
 })
 export class ConfirmationDialogComponent {
-  @Output() confirm = new EventEmitter();
-  @Output() closeModal = new EventEmitter();
+  @Output() confirm = new EventEmitter<void>();
+  @Output() closeModal = new EventEmitter<void>();
 
   submit(): void {
     this.confirm.emit();

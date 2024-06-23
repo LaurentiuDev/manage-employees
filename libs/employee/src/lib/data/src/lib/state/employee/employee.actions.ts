@@ -6,12 +6,10 @@ export const setEmployee = createAction(
   props<{ employee: Employee }>()
 );
 
-// export const setUpdatedEmployee = createAction(
-//   '[Employee Components] Set Updated Employee',
-//   props<{ updatedEmployee: Employee }>()
-// );
-
-export const getEmployees = createAction('[Employee Components] Get Employees');
+export const getEmployees = createAction(
+  '[Employee Components] Get Employees',
+  props<{ searchValue: string }>()
+);
 
 export const getEmployeesSuccess = createAction(
   '[Employee API] Get Employees Success',

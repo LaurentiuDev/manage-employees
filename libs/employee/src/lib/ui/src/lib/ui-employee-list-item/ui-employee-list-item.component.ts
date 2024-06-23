@@ -11,8 +11,8 @@ import { Employee } from '@manage-employees/shared/models';
 })
 export class EmployeeListItemComponent {
   @Input() employee!: Employee;
-  @Output() openEditEmployeeModal = new EventEmitter();
-  @Output() openDeleteEmployeeModal = new EventEmitter();
+  @Output() openEditEmployeeModal = new EventEmitter<Employee>();
+  @Output() openDeleteEmployeeModal = new EventEmitter<Employee>();
   
   openEditModal(): void {
     this.openEditEmployeeModal.emit(this.employee);

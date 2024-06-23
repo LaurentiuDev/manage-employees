@@ -14,9 +14,9 @@ import { Employee } from '@manage-employees/shared/models';
 })
 export class EditEmployeeComponent implements OnInit {
   @Input() employee: Employee | null = null;
-  @Output() closeModal = new EventEmitter();
-  @Output() setUpdatedEmployee = new EventEmitter();
-  @Output() saveUpdatedEmployee = new EventEmitter();
+  @Output() closeModal = new EventEmitter<boolean>();
+  @Output() setUpdatedEmployee = new EventEmitter<Employee>();
+  @Output() saveUpdatedEmployee = new EventEmitter<void>();
 
   private readonly formBuilder = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
@@ -35,7 +35,7 @@ export class EditEmployeeComponent implements OnInit {
     this.form.valueChanges.pipe(debounceTime(200), takeUntilDestroyed(this.destroyRef))
       .subscribe((formValue: Employee) => {
         if (this.form.valid) {
-          this.setUpdatedEmployee.emit({...formValue, id: this.employee?.id });
+          this.setUpdatedEmployee.emit({...formValue, id: this.employee?.id } as Employee);
         }
       });
   }

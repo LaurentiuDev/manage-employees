@@ -13,15 +13,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './ui-add-employee.component.scss',
 })
 export class AddEmployeeComponent implements OnInit {
-  @Output() closeModal = new EventEmitter();
-  @Output() setNewEmployee = new EventEmitter();
-  @Output() saveNewEmployee = new EventEmitter();
+  @Output() closeModal = new EventEmitter<boolean>();
+  @Output() setNewEmployee = new EventEmitter<Employee>();
+  @Output() saveNewEmployee = new EventEmitter<void>();
 
   private readonly formBuilder = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
 
   form!: FormGroup;
-  
   
   ngOnInit(): void {
     this.form = this.formBuilder.group({

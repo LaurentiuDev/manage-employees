@@ -7,7 +7,7 @@ import * as uuid from 'uuid';
 })
 
 export class LocalStorageService<T extends { id: string }> {
-  public getAll(key: string): Observable<T[]> {
+  public getAll(key: string,): Observable<T[]> {
     const localStorageItem = localStorage.getItem(key);
     if (localStorageItem) {
       return of(JSON.parse(localStorageItem));

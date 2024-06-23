@@ -15,8 +15,8 @@ export class EmployeeFacade {
     this.store.dispatch(EmployeeActions.setEmployee({ employee }));
   }
 
-  getAll(): void {
-    this.store.dispatch(EmployeeActions.getEmployees());
+  getAll(searchValue: string): void {
+    this.store.dispatch(EmployeeActions.getEmployees({ searchValue }));
   }
 
   add(): void {
