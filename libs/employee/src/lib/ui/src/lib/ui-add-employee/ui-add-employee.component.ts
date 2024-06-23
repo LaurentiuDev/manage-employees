@@ -45,5 +45,24 @@ export class AddEmployeeComponent implements OnInit {
   close(): void {
     this.closeModal.emit();
   }
+
+  handleFileInput(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const files = target.files as FileList;
+    const file = files[0];
+    this.form.value.profilePicture = file;
+    this.saveFile(file);
+    console.log(this.form.value);
+  }
+
+  saveFile(file: File) {
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      this.form.value.profilePicture = reader.result as string;
+      console.log(reader.result as string)
+    };
+    reader.readAsDataURL(file);
+  }
 }
 

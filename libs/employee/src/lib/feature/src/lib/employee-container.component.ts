@@ -42,6 +42,7 @@ export class EmployeeContainerComponent implements OnInit {
 
   saveNewEmployee(): void {
     this.facade.add();
+    this.addEmployeeModalIsOpen = false;
   }
 
   openAddEmployeeModal(): void {

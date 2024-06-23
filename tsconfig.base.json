@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@manage-employees/assets": ["libs/shared/src/lib/assets/src/index.ts"],
       "@manage-employees/confirmation-dialog": [
         "libs/shared/src/lib/components/confirmation-dialog/src/index.ts"
       ],

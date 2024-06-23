@@ -30,7 +30,7 @@
         <div class="form-field">
           <label>Profile picture</label>
           <div class="input-wrapper">
-            <input type="file" formControlName="profilePicture">
+            <input type="file" formControlName="profilePicture" (change)="handleFileInput($event)">
           </div>
         </div>
       </form>

@@ -1,7 +1,7 @@
 <div class="employee-item">
   <div class="employee-information">
     <div class="profile-picture-wrapper">
-      <img src="assets/src/lib/images/user-profile.jpg" alt="">
+      <img [src]="employee.profilePicture ? employee.profilePicture : 'assets/images/user-profile.jpg'" alt="">
     </div>
   
     <div class="employee-details">
