@@ -1,2 +1,49 @@
-<p>employee-container works!</p>
-<lib-ui-employee></lib-ui-employee>
+@if(addEmployeeModalIsOpen) {
+  <lib-ui-add-employee
+    (closeModal)="closeAddEmployeeModal()"
+    (setNewEmployee)="setEmployee($event)"
+    (saveNewEmployee)="saveNewEmployee()"
+  ></lib-ui-add-employee>
+}
+
+@if(editEmployeeModalIsOpen) {
+  <lib-ui-edit-employee
+    [employee]="employee$ | async"
+    (closeModal)="closeEditEmployeeModal()"
+    (setUpdatedEmployee)="setEmployee($event)"
+    (saveUpdatedEmployee)="saveUpdatedEmployee()"
+  ></lib-ui-edit-employee>
+}
+
+@if (confirmationModalIsOpen) {
+  <lib-confirmation-dialog
+    (closeModal)="closeConfirmationModal()"
+    (confirm)="deleteEmployee()"
+  ></lib-confirmation-dialog>
+}
+
+<div class="employee-page-wrapper">
+  <div>
+    <h1>Our Company</h1>
+    <p>Lorem ipsum dolor sit amat</p>
+  </div>
+  
+  <div class="list-header-wrapper">
+    <div class="title-wrapper">
+      <h2>Employees List</h2>
+    </div>
+    <div class="add-button-wrapper">
+      <button (click)="openAddEmployeeModal()"><i class="fa fa-plus"></i></button>
+    </div>
+  </div>
+  
+  @for(employee of (employees$ | async) ?? []; track employee) {
+    <lib-ui-employee-list-item
+      [employee]="employee"
+      (openEditEmployeeModal)="openEditEmployeeModal($event)"
+      (openDeleteEmployeeModal)="openDeleteEmployeeModal($event)"
+    ></lib-ui-employee-list-item>
+  }
+</div>
+
+

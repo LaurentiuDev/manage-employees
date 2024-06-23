@@ -1,0 +1,23 @@
+<div class="employee-item">
+  <div class="employee-information">
+    <div class="profile-picture-wrapper">
+      <img src="assets/src/lib/images/user-profile.jpg" alt="">
+    </div>
+  
+    <div class="employee-details">
+      <h2 class="name">{{ employee.firstName }} {{ employee.lastName }}</h2>
+      <p class="position">{{ employee.lastName }}</p>
+    </div>
+  </div>
+  
+  <div class="actions">
+    <div class="delete-action">
+      <button type="button" class="close" aria-label="Close" (click)="openDeleteModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="edit-action">
+      <button (click)="openEditModal()"><i class="fa fa-pencil"></i></button>
+    </div>
+  </div>
+</div>

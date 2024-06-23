@@ -15,6 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@manage-employees/assets": ["libs/shared/src/lib/assets/src/index.ts"],
+      "@manage-employees/confirmation-dialog": [
+        "libs/shared/src/lib/components/confirmation-dialog/src/index.ts"
+      ],
       "@manage-employees/employee": ["libs/employee/src/index.ts"],
       "@manage-employees/employee/data": [
         "libs/employee/src/lib/data/src/index.ts"
@@ -25,8 +29,16 @@
       "@manage-employees/employee/ui": [
         "libs/employee/src/lib/ui/src/index.ts"
       ],
-      "@manage-employees/models": ["libs/shared/models/src/index.ts"],
-      "@manage-employees/styles": ["libs/shared/styles/src/index.ts"]
+      "@manage-employees/shared": ["libs/shared/src/index.ts"],
+      "@manage-employees/shared/models": [
+        "libs/shared/src/lib/models/src/index.ts"
+      ],
+      "@manage-employees/shared/services": [
+        "libs/shared/src/lib/services/src/index.ts"
+      ],
+      "@manage-employees/shared/styles": [
+        "libs/shared/src/lib/styles/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
