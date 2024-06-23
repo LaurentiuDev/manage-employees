@@ -52,7 +52,6 @@ export class AddEmployeeComponent implements OnInit {
     const file = files[0];
     this.form.value.profilePicture = file;
     this.saveFile(file);
-    console.log(this.form.value);
   }
 
   saveFile(file: File) {
@@ -60,7 +59,6 @@ export class AddEmployeeComponent implements OnInit {
 
     reader.onloadend = () => {
       this.form.value.profilePicture = reader.result as string;
-      console.log(reader.result as string)
     };
     reader.readAsDataURL(file);
   }

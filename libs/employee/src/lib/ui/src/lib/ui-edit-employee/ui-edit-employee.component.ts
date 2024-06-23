@@ -47,5 +47,22 @@ export class EditEmployeeComponent implements OnInit {
   close(): void {
     this.closeModal.emit(false);
   }
+
+  handleFileInput(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const files = target.files as FileList;
+    const file = files[0];
+    this.form.value.profilePicture = file;
+    this.saveFile(file);
+  }
+
+  saveFile(file: File) {
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      this.form.value.profilePicture = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
 }
 
