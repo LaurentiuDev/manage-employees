@@ -23,24 +23,51 @@ export class EditEmployeeComponent implements OnInit {
 
   form!: FormGroup;
   
+  file!: File;
   
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       firstName: [this.employee?.firstName, [Validators.required, Validators.minLength(3)]],
       lastName: [this.employee?.lastName, [Validators.required, Validators.minLength(3)]],
       position: [this.employee?.position, [Validators.required, Validators.minLength(2)]],
+      profilePicture: [],
     });
 
     this.form.valueChanges.pipe(debounceTime(200), takeUntilDestroyed(this.destroyRef))
       .subscribe((formValue: Employee) => {
         if (this.form.valid) {
-          this.setUpdatedEmployee.emit({...formValue, id: this.employee?.id } as Employee);
+          this.setUpdatedEmployee.emit({
+            ...formValue,
+            profilePicture: !this.file ? this.employee?.profilePicture : formValue.profilePicture,
+            id: this.employee?.id 
+          } as Employee);
         }
       });
   }
 
   save(): void {
-    this.saveUpdatedEmployee.emit();
+    if (!this.file) {
+      this.form.value.profilePicture = this.employee?.profilePicture;
+      this.setUpdatedEmployee.emit({
+        ...this.form.value, 
+        profilePicture: this.employee?.profilePicture,
+        id: this.employee?.id 
+      } as Employee);
+      this.saveUpdatedEmployee.emit();
+    } else {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        this.form.value.profilePicture = reader.result as string;
+        this.setUpdatedEmployee.emit({
+          ...this.form.value, 
+          profilePicture: reader.result as string,
+          id: this.employee?.id 
+        } as Employee);
+        this.saveUpdatedEmployee.emit();
+      };
+      reader.readAsDataURL(this.file);
+    }
   }
 
   close(): void {
@@ -50,18 +77,9 @@ export class EditEmployeeComponent implements OnInit {
   handleFileInput(event: Event): void {
     const target = event.target as HTMLInputElement;
     const files = target.files as FileList;
-    const file = files[0];
-    this.form.value.profilePicture = file;
-    this.saveFile(file);
-  }
-
-  saveFile(file: File) {
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      this.form.value.profilePicture = reader.result as string;
-    };
-    reader.readAsDataURL(file);
+    this.file = files[0];
+    this.form.value.imageToUpload = this.file;
+    this.setUpdatedEmployee.emit({...this.form.value, profilePicture: this.file, id: this.employee?.id } as Employee);
   }
 }
 
