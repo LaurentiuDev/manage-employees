@@ -78,7 +78,6 @@ export class EditEmployeeComponent implements OnInit {
     const target = event.target as HTMLInputElement;
     const files = target.files as FileList;
     this.file = files[0];
-    this.form.value.imageToUpload = this.file;
     this.setUpdatedEmployee.emit({...this.form.value, profilePicture: this.file, id: this.employee?.id } as Employee);
   }
 }

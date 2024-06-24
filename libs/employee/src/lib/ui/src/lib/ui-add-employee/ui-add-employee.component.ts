@@ -21,6 +21,8 @@ export class AddEmployeeComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   form!: FormGroup;
+
+  file!: File;
   
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -39,7 +41,16 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   save(): void {
-    this.saveNewEmployee.emit();
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      this.setNewEmployee.emit({
+        ...this.form.value, 
+        profilePicture: reader.result as string
+      } as Employee);
+      this.saveNewEmployee.emit();
+    };
+    reader.readAsDataURL(this.file);
   }
 
   close(): void {
@@ -49,18 +60,8 @@ export class AddEmployeeComponent implements OnInit {
   handleFileInput(event: Event): void {
     const target = event.target as HTMLInputElement;
     const files = target.files as FileList;
-    const file = files[0];
-    this.form.value.profilePicture = file;
-    this.saveFile(file);
-  }
-
-  saveFile(file: File) {
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      this.form.value.profilePicture = reader.result as string;
-    };
-    reader.readAsDataURL(file);
+    this.file = files[0];
+    this.setNewEmployee.emit({...this.form.value, profilePicture: this.file } as Employee);
   }
 }
 
