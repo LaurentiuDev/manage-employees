@@ -1,10 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddEmployeeComponent, EditEmployeeComponent, EmployeeListItemComponent } from '@manage-employees/employee/ui';
 import { EmployeeFacade } from '@manage-employees/employee/data';
 import { Employee } from '@manage-employees/shared/models';
 import { ConfirmationDialogComponent } from '@manage-employees/confirmation-dialog';
 import { SearchComponent } from '@manage-employees/shared/search';
+import { ConfirmationModalService } from '@manage-employees/shared/services';
 
 @Component({
   selector: 'lib-employee-container',
@@ -17,20 +18,22 @@ import { SearchComponent } from '@manage-employees/shared/search';
     ConfirmationDialogComponent,
     SearchComponent
   ],
-  providers: [EmployeeFacade],
+  providers: [EmployeeFacade, ConfirmationModalService],
   templateUrl: './employee-container.component.html',
   styleUrl: './employee-container.component.scss',
 })
 export class EmployeeContainerComponent implements OnInit {
+  private modalService = inject(ConfirmationModalService);
   private facade = inject(EmployeeFacade);
+
+  @ViewChild('confirmationModal', { read: ViewContainerRef })
+  entry!: ViewContainerRef;
   
   employees$ = this.facade.employees$;
   employee$ = this.facade.employee$;
-  employeeId = '';
 
   addEmployeeModalIsOpen = false;
   editEmployeeModalIsOpen = false;
-  confirmationModalIsOpen = false;
 
   ngOnInit(): void {
     this.facade.getAll('');
@@ -68,17 +71,10 @@ export class EmployeeContainerComponent implements OnInit {
   }
 
   openDeleteEmployeeModal(employee: Employee): void {
-    this.employeeId = employee.id
-    this.confirmationModalIsOpen = true;
-  }
-
-  deleteEmployee(): void {
-    this.facade.delete(this.employeeId);
-    this.confirmationModalIsOpen = false; 
-  }
-
-  closeConfirmationModal(): void {
-    this.confirmationModalIsOpen = false; 
+    this.modalService.openModal(this.entry, 'Confirmation', 'Are you sure you want to delete the employee?')
+      .subscribe(() => {
+        this.facade.delete(employee.id);
+      });
   }
 
   search(searchValue: string): void {
