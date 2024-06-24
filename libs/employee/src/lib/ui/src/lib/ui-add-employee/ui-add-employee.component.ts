@@ -24,9 +24,9 @@ export class AddEmployeeComponent implements OnInit {
   
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      position: ['', [Validators.required]],
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.minLength(3)]],
+      position: ['', [Validators.required, Validators.minLength(2)]],
       profilePicture: [''],
     });
 

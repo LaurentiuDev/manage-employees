@@ -11,6 +11,16 @@
           <div class="input-wrapper">
             <input type="text" formControlName="firstName">
           </div>
+          @if (form.get('firstName')?.dirty || form.get('firstName')?.touched) {
+            <div class="errors">
+              @if (form.get('firstName')?.hasError('required')) {
+                <span class="error">This field is required.</span>
+              }
+              @if (form.get('firstName')?.hasError('minlength')) {
+                <span class="error">Must be at least 3 characters.</span>
+              }
+            </div>
+          }
         </div>
   
         <div class="form-field">
@@ -18,6 +28,16 @@
           <div class="input-wrapper">
             <input type="text" formControlName="lastName">
           </div>
+          @if (form.get('lastName')?.dirty || form.get('lastName')?.touched) {
+            <div class="errors">
+              @if (form.get('lastName')?.hasError('required')) {
+                <span class="error">This field is required.</span>
+              }
+              @if (form.get('lastName')?.hasError('minlength')) {
+                <span class="error">Must be at least 3 characters.</span>
+              }
+            </div>
+          }
         </div>
   
         <div class="form-field">
@@ -25,6 +45,16 @@
           <div class="input-wrapper">
             <input type="text" formControlName="position">
           </div>
+          @if (form.get('position')?.dirty || form.get('position')?.touched) {
+            <div class="errors">
+              @if (form.get('position')?.hasError('required')) {
+                <span class="error">This field is required.</span>
+              }
+              @if (form.get('position')?.hasError('minlength')) {
+                <span class="error">Must be at least 2 characters.</span>
+              }
+            </div>
+          }
         </div>
   
         <div class="form-field">

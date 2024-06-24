@@ -26,10 +26,9 @@ export class EditEmployeeComponent implements OnInit {
   
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      firstName: [this.employee?.firstName, [Validators.required]],
-      lastName: [this.employee?.lastName, [Validators.required]],
-      position: [this.employee?.position, [Validators.required]],
-      profilePicture: [this.employee?.profilePicture],
+      firstName: [this.employee?.firstName, [Validators.required, Validators.minLength(3)]],
+      lastName: [this.employee?.lastName, [Validators.required, Validators.minLength(3)]],
+      position: [this.employee?.position, [Validators.required, Validators.minLength(2)]],
     });
 
     this.form.valueChanges.pipe(debounceTime(200), takeUntilDestroyed(this.destroyRef))
