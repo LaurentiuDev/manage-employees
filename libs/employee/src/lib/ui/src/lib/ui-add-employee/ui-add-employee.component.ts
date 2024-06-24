@@ -32,7 +32,7 @@ export class AddEmployeeComponent implements OnInit {
       profilePicture: [''],
     });
 
-    this.form.valueChanges.pipe(debounceTime(200), takeUntilDestroyed(this.destroyRef))
+    this.form.valueChanges.pipe(debounceTime(300), takeUntilDestroyed(this.destroyRef))
       .subscribe((formValue: Employee) => {
         if (this.form.valid) {
           this.setNewEmployee.emit(formValue);

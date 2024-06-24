@@ -15,7 +15,6 @@ export class SearchComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   @Input() placeholder = '';
-
   @Output() searchValueChanged = new EventEmitter<string>();
 
   searchControl = new FormControl('');

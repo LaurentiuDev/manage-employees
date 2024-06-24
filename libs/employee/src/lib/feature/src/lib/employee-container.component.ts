@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddEmployeeComponent, EditEmployeeComponent, EmployeeListItemComponent } from '@manage-employees/employee/ui';
 import { EmployeeFacade } from '@manage-employees/employee/data';
@@ -6,6 +6,7 @@ import { Employee } from '@manage-employees/shared/models';
 import { ConfirmationDialogComponent } from '@manage-employees/confirmation-dialog';
 import { SearchComponent } from '@manage-employees/shared/search';
 import { ConfirmationModalService } from '@manage-employees/shared/services';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'lib-employee-container',
@@ -25,6 +26,7 @@ import { ConfirmationModalService } from '@manage-employees/shared/services';
 export class EmployeeContainerComponent implements OnInit {
   private modalService = inject(ConfirmationModalService);
   private facade = inject(EmployeeFacade);
+  private destroyRef = inject(DestroyRef);
 
   @ViewChild('confirmationModal', { read: ViewContainerRef })
   entry!: ViewContainerRef;
@@ -72,6 +74,7 @@ export class EmployeeContainerComponent implements OnInit {
 
   openDeleteEmployeeModal(employee: Employee): void {
     this.modalService.openModal(this.entry, 'Confirmation', 'Are you sure you want to delete the employee?')
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.facade.delete(employee.id);
       });

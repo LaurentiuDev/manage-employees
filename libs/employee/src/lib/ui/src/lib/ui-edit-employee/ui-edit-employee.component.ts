@@ -33,7 +33,7 @@ export class EditEmployeeComponent implements OnInit {
       profilePicture: [],
     });
 
-    this.form.valueChanges.pipe(debounceTime(200), takeUntilDestroyed(this.destroyRef))
+    this.form.valueChanges.pipe(debounceTime(300), takeUntilDestroyed(this.destroyRef))
       .subscribe((formValue: Employee) => {
         if (this.form.valid) {
           this.setUpdatedEmployee.emit({
@@ -47,7 +47,6 @@ export class EditEmployeeComponent implements OnInit {
 
   save(): void {
     if (!this.file) {
-      this.form.value.profilePicture = this.employee?.profilePicture;
       this.setUpdatedEmployee.emit({
         ...this.form.value, 
         profilePicture: this.employee?.profilePicture,
@@ -58,7 +57,6 @@ export class EditEmployeeComponent implements OnInit {
       const reader = new FileReader();
 
       reader.onloadend = () => {
-        this.form.value.profilePicture = reader.result as string;
         this.setUpdatedEmployee.emit({
           ...this.form.value, 
           profilePicture: reader.result as string,

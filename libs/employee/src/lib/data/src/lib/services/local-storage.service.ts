@@ -38,8 +38,4 @@ export class LocalStorageService<T extends { id: string }> {
     localStorage.setItem('employees', JSON.stringify(updatedItems));
     return of(id);
   }
-
-  public remove(key: string): void {
-    localStorage.removeItem(key);
-  }
 }
