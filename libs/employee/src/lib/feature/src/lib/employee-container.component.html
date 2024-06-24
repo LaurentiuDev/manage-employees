@@ -15,12 +15,7 @@
   ></lib-ui-edit-employee>
 }
 
-@if (confirmationModalIsOpen) {
-  <lib-confirmation-dialog
-    (closeModal)="closeConfirmationModal()"
-    (confirm)="deleteEmployee()"
-  ></lib-confirmation-dialog>
-}
+<div #confirmationModal></div>
 
 <div class="employee-page-wrapper">
   <div>
