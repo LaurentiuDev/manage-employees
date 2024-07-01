@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { EmployeeActions } from './action-types';
-import { catchError, exhaustMap, map, mergeMap, of, withLatestFrom } from 'rxjs';
+import { catchError, exhaustMap, map, mergeMap, of, switchMap, withLatestFrom } from 'rxjs';
 import { Employee } from '@manage-employees/shared/models';
 import { Store } from '@ngrx/store';
 import { selectEmployee } from './employee.selectors';
@@ -16,7 +16,7 @@ export class EmployeeEffects {
   getEmployees$ = createEffect(() => 
     this.actions$.pipe(
       ofType(EmployeeActions.getEmployees),
-      mergeMap((action) =>
+      switchMap((action) =>
         this.localStorageService.getAll('employees').pipe(
           map((employees: Employee[]) => {
             if (action.searchValue) {

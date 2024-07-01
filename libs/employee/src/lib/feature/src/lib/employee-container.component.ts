@@ -7,6 +7,7 @@ import { ConfirmationDialogComponent } from '@manage-employees/confirmation-dial
 import { SearchComponent } from '@manage-employees/shared/search';
 import { ConfirmationModalService } from '@manage-employees/shared/services';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'lib-employee-container',
@@ -82,5 +83,18 @@ export class EmployeeContainerComponent implements OnInit {
 
   search(searchValue: string): void {
     this.facade.getAll(searchValue);
+  }
+
+  export(): void {
+    console.log('export');
+    this.employees$.pipe(take(1)).subscribe((employees: Employee[]) => {
+      
+      const csv =  "data:text/csv;charset=utf-8," +  employees.map((employee: Employee) => {
+        return `${employee.firstName} ${employee.lastName}, ${employee.position}`
+      }).join('\n');
+      console.log('export', csv);
+      const encodedUri = encodeURI(csv);
+      window.open(encodedUri);
+    });
   }
 }

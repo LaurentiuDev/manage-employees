@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { Observable, delay, of } from "rxjs";
 import * as uuid from 'uuid';
 
 @Injectable({
@@ -8,6 +8,7 @@ import * as uuid from 'uuid';
 
 export class LocalStorageService<T extends { id: string }> {
   public getAll(key: string,): Observable<T[]> {
+    console.info(key);
     const localStorageItem = localStorage.getItem(key);
     if (localStorageItem) {
       return of(JSON.parse(localStorageItem));
@@ -27,7 +28,7 @@ export class LocalStorageService<T extends { id: string }> {
     const localStorageItem = localStorage.getItem(key) ?? '';
     const items = JSON.parse(localStorageItem);
     const updatedItems = items.map((item: T) => item.id === object.id ? object : item);
-    localStorage.setItem('employees', JSON.stringify(updatedItems))
+    localStorage.setItem(key, JSON.stringify(updatedItems))
     return of(object);
   }
 
@@ -35,7 +36,7 @@ export class LocalStorageService<T extends { id: string }> {
     const localStorageItem = localStorage.getItem(key) ?? '';
     const items = JSON.parse(localStorageItem);
     const updatedItems = items.filter((item: T) => item.id !== id);
-    localStorage.setItem('employees', JSON.stringify(updatedItems));
+    localStorage.setItem(key, JSON.stringify(updatedItems));
     return of(id);
   }
 }
